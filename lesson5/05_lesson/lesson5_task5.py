@@ -9,7 +9,9 @@ options = Options()
 options.headless = False  # Запуск браузера с интерфейсом
 
 # Путь к geckodriver
-service = Service(executable_path='C:\\Users\\intes\\OneDrive\\Рабочий стол\\python lessons\\lesson5\\geckodriver.exe')
+service = Service(
+    executable_path="C:\\Users\\intes\\OneDrive\\Рабочий стол\\python lessons\\lesson5\\geckodriver.exe"
+)
 
 # Инициализация браузера с geckodriver
 driver = webdriver.Firefox(service=service, options=options)

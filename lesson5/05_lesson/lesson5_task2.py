@@ -11,7 +11,9 @@ chrome_options.add_argument("--ignore-certificate-errors")
 chrome_options.add_argument("--ignore-ssl-errors")
 
 # Запуск драйвера с указанными опциями
-driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
+driver = webdriver.Chrome(
+    service=ChromeService(ChromeDriverManager().install()), options=chrome_options
+)
 driver.maximize_window()
 
 driver.get("http://uitestingplayground.com/dynamicid")
