@@ -15,12 +15,10 @@ driver = webdriver.Firefox()
 driver.get("http://the-internet.herokuapp.com/login")
 
 # Находим поле ввода username и вводим значение
-username_field = driver.find_element(By.ID, "username")
-username_field.send_keys("tomsmith")
+username_field = driver.find_element(By.ID, "username").send_keys("tomsmith")
 
 # Находим поле ввода password и вводим значение
-password_field = driver.find_element(By.ID, "password")
-password_field.send_keys("SuperSecretPassword!")
+password_field = driver.find_element(By.ID, "password").send_keys("SuperSecretPassword!")
 
 # Находим кнопку Login и нажимаем её
 login_button = driver.find_element(By.CSS_SELECTOR, "button[type='submit']")
