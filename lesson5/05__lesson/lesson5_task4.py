@@ -10,13 +10,8 @@ from time import sleep
 options = Options()
 options.headless = False  # Запуск браузера с интерфейсом
 
-# Путь к geckodriver
-service = Service(
-    executable_path="C:\\Users\\intes\\OneDrive\\Рабочий стол\\python lessons\\lesson5\\geckodriver.exe"
-)
-
 # Инициализация браузера с geckodriver
-driver = webdriver.Firefox(service=service, options=options)
+driver = webdriver.Firefox()
 
 # Открываем страницу
 driver.get("http://the-internet.herokuapp.com/entry_ad")
