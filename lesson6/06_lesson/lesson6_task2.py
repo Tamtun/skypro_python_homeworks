@@ -1,4 +1,3 @@
-from time import sleep
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
@@ -9,6 +8,9 @@ from selenium.webdriver.support import expected_conditions as EC
 driver = webdriver.Chrome(
     service=ChromeService(ChromeDriverManager().install())
 )
+
+
+driver.implicitly_wait(10)
 
 driver.get("http://uitestingplayground.com/textinput")
 
@@ -23,12 +25,7 @@ updated_button_text = WebDriverWait(driver, 10).until(
     )
 )
 
-button_text = driver.find_element(
-    By.CSS_SELECTOR, "button#updatingButton"
-).text
+button_text = driver.find_element(By.CSS_SELECTOR, "button#updatingButton").text
 print(button_text)
-
-sleep(5)
-
 
 driver.quit()
