@@ -9,6 +9,8 @@ driver = webdriver.Chrome(
     service=ChromeService(ChromeDriverManager().install())
 )
 
+driver.implicitly_wait(10)
+
 driver.get("http://uitestingplayground.com/ajax")
 
 driver.find_element(By.CSS_SELECTOR, "button#ajaxButton").click()
@@ -22,7 +24,5 @@ text_element = WebDriverWait(driver, 60, 0.1).until(
 
 loaded_text = driver.find_element(By.CSS_SELECTOR, "div#content > p.bg-success").text
 print(loaded_text)
-
-driver.implicitly_wait(10)
 
 driver.quit()

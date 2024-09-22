@@ -9,6 +9,9 @@ driver = webdriver.Chrome(
     service=ChromeService(ChromeDriverManager().install())
 )
 
+
+driver.implicitly_wait(10)
+
 driver.get("http://uitestingplayground.com/textinput")
 
 input_field = driver.find_element(By.CSS_SELECTOR, "input#newButtonName")
@@ -24,7 +27,5 @@ updated_button_text = WebDriverWait(driver, 10).until(
 
 button_text = driver.find_element(By.CSS_SELECTOR, "button#updatingButton").text
 print(button_text)
-
-driver.implicitly_wait(10)
 
 driver.quit()
