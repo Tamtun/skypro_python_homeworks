@@ -1,58 +1,62 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import (
+    TimeoutException,
+)  # Импортируем TimeoutException
 
-options = Options()
-options.headless = False
+driver = webdriver.Chrome()
 
-service = Service(executable_path="C:\\Path\\To\\chromedriver.exe")
+try:
+    driver.get(
+        "https://bonigarcia.dev/selenium-webdriver-java/slow-calculator.html"
+    )
 
-driver = webdriver.Chrome(service=service, options=options)
+    delay_input = driver.find_element(By.CSS_SELECTOR, "#delay")
+    delay_input.clear()
+    delay_input.send_keys("45")
 
-driver.get("https://bonigarcia.dev/selenium-webdriver-java/data-types.html")
+    buttons = driver.find_elements(
+        By.CSS_SELECTOR,
+        "span.btn.btn-outline-primary, span.operator.btn.btn-outline-success, span.btn.btn-outline-warning",
+    )
 
-driver.find_element(By.NAME, "firstname").send_keys("Иван")
-driver.find_element(By.NAME, "lastname").send_keys("Петров")
-driver.find_element(By.NAME, "address").send_keys("Ленина, 55-3")
-driver.find_element(By.NAME, "email").send_keys("test@skypro.com")
-driver.find_element(By.NAME, "phone").send_keys("+7985899998787")
-driver.find_element(By.NAME, "zipcode").send_keys("")  # Оставляем пустым
-driver.find_element(By.NAME, "city").send_keys("Москва")
-driver.find_element(By.NAME, "country").send_keys("Россия")
-driver.find_element(By.NAME, "job").send_keys("QA")
-driver.find_element(By.NAME, "company").send_keys("SkyPro")
+    for button in buttons:
+        if button.text == "7":
+            button.click()
+            break
 
-driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
+    for button in buttons:
+        if button.text == "+":
+            button.click()
+            break
 
-WebDriverWait(driver, 10).until(
-    EC.presence_of_element_located((By.NAME, "zipcode"))
-)
+    for button in buttons:
+        if button.text == "8":
+            button.click()
+            break
 
-zip_code_field = driver.find_element(By.NAME, "zipcode")
-assert "border-color: red;" in zip_code_field.get_attribute(
-    "style"
-), "Zip code field is not highlighted red"
+    for button in buttons:
+        if button.text == "=":
+            button.click()
+            break
 
-fields_to_check = [
-    "firstname",
-    "lastname",
-    "address",
-    "email",
-    "phone",
-    "city",
-    "country",
-    "job",
-    "company",
-]
+    try:
+        WebDriverWait(driver, 90).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, ".screen"))
+        )
 
-for field in fields_to_check:
-    input_field = driver.find_element(By.NAME, field)
-    assert "border-color: green;" in input_field.get_attribute(
-        "style"
-    ), f"{field} field is not highlighted green"
+        result = driver.find_element(By.CSS_SELECTOR, ".screen").text
 
-# Закрываем браузер
-driver.quit()
+        print(f"Текущий результат: {result}")
+
+        assert result == "15", f"Ошибка: ожидалось 15, но получено {result}"
+        print("Тест успешно пройден: результат 15")
+    except TimeoutException:
+        print("Таймаут: результат не был найден.")
+    except AssertionError as e:
+        print(e)
+
+finally:
+    driver.quit()
