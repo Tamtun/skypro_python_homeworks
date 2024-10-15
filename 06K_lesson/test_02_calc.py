@@ -59,4 +59,8 @@ try:
         print(e)
 
 finally:
+<<<<<<< HEAD
     driver.quit()
+=======
+    driver.quit()
+>>>>>>> 7560f05df5740d97bac7aa15c7d33393a135c9ca
