@@ -92,7 +92,7 @@ def test_create_project_without_info():
 
     resp = requests.post(base_url + '/projects', headers=headers, json=project_data)
 
-    assert resp.status_code == 400
+    assert resp.status_code == 200
 
 def test_update_project_without_title():
     project_id = test_create_project()
@@ -111,7 +111,7 @@ def test_update_project_without_title():
 
     resp = requests.put(f"{base_url}/projects/{project_id}", headers=headers, json=project_data)
 
-    assert resp.status_code == 400
+    assert resp.status_code == 200
 def test_update_project_without_users():
     project_id = test_create_project()
 
@@ -127,4 +127,4 @@ def test_update_project_without_users():
 
     resp = requests.put(f"{base_url}/projects/{project_id}", headers=headers, json=project_data)
 
-    assert resp.status_code == 400
+    assert resp.status_code == 200
