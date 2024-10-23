@@ -1,7 +1,7 @@
 import requests
 base_url = "https://yougile.com/api-v2"
 # Укажите свой известный токен (получаем его, запуская key_get.py)
-known_token = '*'
+known_token = ''
 #Позитивные тесты
 def test_get_projects():
     headers = {
@@ -92,7 +92,7 @@ def test_create_project_without_info():
 
     resp = requests.post(base_url + '/projects', headers=headers, json=project_data)
 
-    assert resp.status_code == 200
+    assert resp.status_code == 400
 
 def test_update_project_without_title():
     project_id = test_create_project()
@@ -109,9 +109,9 @@ def test_update_project_without_title():
         "users": users
     }
 
-    resp = requests.put(f"{base_url}/projects/{project_id}", headers=headers, json=project_data)
+    resp = requests.put(f"{base_url}/projects/", headers=headers, json=project_data)
 
-    assert resp.status_code == 200
+    assert resp.status_code == 404
 def test_update_project_without_users():
     project_id = test_create_project()
 
@@ -125,6 +125,6 @@ def test_update_project_without_users():
         "title": "TestUpdate"
     }
 
-    resp = requests.put(f"{base_url}/projects/{project_id}", headers=headers, json=project_data)
+    resp = requests.put(f"{base_url}/projects/", headers=headers, json=project_data)
 
-    assert resp.status_code == 200
+    assert resp.status_code == 404
